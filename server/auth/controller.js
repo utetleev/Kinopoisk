@@ -32,6 +32,10 @@ const signup = async(req, res) => {
     })
 }
 
+const signIn = (req, res) => {
+    res.redirect('/profile')
+}
+
 module.exports = {
     signup
 }

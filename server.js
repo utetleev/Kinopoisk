@@ -6,6 +6,7 @@ const passport = require('passport');
 const app = express();
 
 require('./server/config/db')
+require('./server/config/passport')
 
 app.use(express.static(__dirname + '/public'));
 app.use(express.urlencoded())
@@ -15,7 +16,7 @@ app.use(session({
     maxAge: 1000*60*60*7,
     resave: false,
     store: mongooseStore.create({
-        mongoUrl: 'mongodb://localhost:27017'
+        mongoUrl: 'mongodb://127.0.0.1:27017'
     })
 }));
 app.use(passport.initialize());

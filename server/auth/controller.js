@@ -2,7 +2,7 @@ const User = require('./User')
 
 const bcrypt = require('bcrypt')
 
-const signup = async(req, res) => {
+const signUp = async(req, res) => {
     if (
         req.body.email.length <= 0 && 
         req.body.full_name.length <= 0 && 
@@ -32,10 +32,12 @@ const signup = async(req, res) => {
     })
 }
 
-const signIn = (req, res) => {
-    res.redirect('/profile')
+const signIn = (req , res) => {
+    console.log(req.user);
+    res.redirect(`/profile/${req.user._id}`)
 }
 
 module.exports = {
-    signup
+    signUp,
+    signIn
 }

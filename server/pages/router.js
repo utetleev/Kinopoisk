@@ -29,20 +29,22 @@ router.get("/profile/:id", async (req, res) => {
     }
 })
 
-router.get("/admin", (req, res) => {
-    res.render("adminProfile" , {user:  req.user ? req.user : {}})
+router.get("/admin/:id", async(req, res) => {
+    const allGenres = await Genres.find()
+    const user = await User.findById(req.params.id)
+    res.render("adminProfile" , {user: user , genres: allGenres , loginUser: req.user ? req.user : {}})
 })
 
 router.get("/new", async (req, res) => {
     const allGenres = await Genres.find()
     const getAllCountries = await Country.find()
-    res.render("newFilm", {genres: allGenres , countries: allCountries , user:  req.user ? req.user : {}})
+    res.render("newFilm", {genres: allGenres , countries: getAllCountries , user:  req.user ? req.user : {}})
 })
 
 router.get("/edit", async (req, res) => {
     const allGenres = await Genres.find()
     const getAllCountries = await Country.find()
-    res.render("editFilm", {genres: allGenres , countries: allCountries , user:  req.user ? req.user : {}})
+    res.render("editFilm", {genres: allGenres , countries: getAllCountries , user:  req.user ? req.user : {}})
 })    
 })
 router.get("/not-found", (req, res) => {

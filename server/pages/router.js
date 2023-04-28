@@ -32,6 +32,7 @@ router.get("/profile/:id", async (req, res) => {
 router.get("/admin/:id", async(req, res) => {
     const allGenres = await Genres.find()
     const user = await User.findById(req.params.id)
+    console.log("asd")
     res.render("adminProfile" , {user: user , genres: allGenres , loginUser: req.user ? req.user : {}})
 })
 

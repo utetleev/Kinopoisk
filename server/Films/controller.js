@@ -1,5 +1,5 @@
 const Film = require ('./Film')
-const createFilm = (req , res) => {
+const createFilm =  async (req , res) => {
     // проверка
     // console.log("req.file===", req.file)
     // console.log("req.titleRus===", req.body.titleRus)
@@ -18,14 +18,14 @@ const createFilm = (req , res) => {
     req.body.country.length > 2 &&
     req.body.genre.length > 2)
     {
-        new Film({
+       await new Film({
             titleRus: req.body.titleRus,
             titleEng: req.body.titleEng,
             year: req.body.year,
             time: req.body.time,
             country: req.body.country,
             genre: req.body.genre,
-            image: `${req.file.destination}/${req.file.filename}` ,
+            image: `/images/films/${req.file.filename}` ,
             author: req.user._id
         }).save()
         res.redirect(`/admin/${req.user._id}`)

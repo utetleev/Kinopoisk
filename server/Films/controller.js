@@ -1,4 +1,6 @@
 const Film = require ('./Film')
+const fs = require('fs')
+const path = require('path')
 const createFilm =  async (req , res) => {
     // проверка
     // console.log("req.file===", req.file)
@@ -33,6 +35,20 @@ const createFilm =  async (req , res) => {
         res.redirect('/new?error=1')
    }
 }
+const editFilm = async (req , res) => {
+    if(req.file && req.body.titleRus.length > 2 &&
+        req.body.titleEng.length > 2 &&
+        req.body.year > 0 &&
+        req.body.time > 10 &&
+        req.body.country.length > 0 &&
+        req.body.genre.length > 0    
+){
+    const blog = await Film.findById(req.body.id)
+}else{
+    res.redirect(`/edit/${req.body.id}?error=1`)
+    }
+}  
 module.exports = {
-    createFilm
-}
+    createFilm,
+    editFilm
+}    

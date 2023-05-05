@@ -34,8 +34,8 @@ router.get("/profile/:id", async (req, res) => {
 router.get("/admin/:id", async(req, res) => {
     const allGenres = await Genres.find()
     const user = await User.findById(req.params.id)
-    console.log("asd")
-    res.render("adminProfile" , {user: user , genres: allGenres , loginUser: req.user ? req.user : {}})
+    const films = await Film.find().populate('country').populate('genre').populate('author')
+    res.render("adminProfile" , {user: user , genres: allGenres , loginUser: req.user ? req.user : {} , films: films})
 })
 
 router.get("/new", async (req, res) => {
@@ -44,10 +44,11 @@ router.get("/new", async (req, res) => {
     res.render("newFilm", {genres: allGenres , countries: getAllCountries , user:  req.user ? req.user : {}})
 })
 
-router.get("/edit", async (req, res) => {
+router.get("/edit/:id", async (req, res) => {
     const allGenres = await Genres.find()
     const getAllCountries = await Country.find()
-    res.render("editFilm", {genres: allGenres , countries: getAllCountries , user:  req.user ? req.user : {}})
+    const film = await Film.findById(req.params.id)
+    res.render("editFilm", {genres: allGenres , countries: getAllCountries , user:  req.user ? req.user : {} , film})
 })    
 })
 router.get("/not-found", (req, res) => {

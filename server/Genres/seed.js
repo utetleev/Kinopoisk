@@ -8,6 +8,7 @@ const data = [
     'Боевики',
     'Мелодрамы',
     'Фэнтези',
+    'Аниме'
 ]
 
 async function writeDataGenre(){

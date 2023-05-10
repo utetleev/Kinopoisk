@@ -43,7 +43,28 @@ const editFilm = async (req , res) => {
         req.body.country.length > 0 &&
         req.body.genre.length > 0    
 ){
-    const blog = await Film.findById(req.body.id)
+    const films = await Film.findById(req.body.id)
+    fs.unlinkSync(path.join(__dirname + '../../../public' + films.image))
+    // films.titleRus = req.body.titleRus;
+    // films.titleEng = req.body.titleEng;
+    // films.year = req.body.year;
+    // films.time = req.body.time;
+    // films.country = req.body.country;
+    // films.genre = req.body.genre;
+    // films.image = `/image/films/${req.file.filename}`;
+    // films.save()
+
+    await Film.findByIdAndUpdate(req.body.id, {
+        titleRus: req.body.titleRus,
+        titleEng: req.body.titleEng,
+        year: req.body.year,
+        time: req.body.time,
+        country: req.body.country,
+        genre: req.body.genre,
+        image: `/image/films/${req.file.filename}`,
+        author: req.user._id
+    })
+    res.redirect('/admin/' + req.user._id)
 }else{
     res.redirect(`/edit/${req.body.id}?error=1`)
     }
